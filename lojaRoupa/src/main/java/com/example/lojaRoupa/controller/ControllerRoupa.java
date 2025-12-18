@@ -1,5 +1,9 @@
 package com.example.lojaRoupa.controller;
 
+import com.example.lojaRoupa.model.DadosRoupas;
+import com.example.lojaRoupa.model.Roupa;
+import com.example.lojaRoupa.model.RoupaRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 //Controller - Respnsavel por receber as requisições em HTPP
 //Rest- API rest
@@ -15,10 +19,13 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/roupas") // Define a URL do controller
 @CrossOrigin(origins = "*") // Permite requisições de qualquer origem
 public class ControllerRoupa {
+    @Autowired
+    private RoupaRepository roupaRepository;
    //Registrar uma roupa do banco
     @PostMapping
-    public void CadastrarRoupa(@RequestBody String roupa) {
-        System.out.println("Roupa cadastrada: " + roupa);
+    public void CadastrarRoupa(@RequestBody DadosRoupas dadosRoupas) {
+        roupaRepository.save(new Roupa(dadosRoupas));
+        System.out.println("Roupa cadastrada: " + dadosRoupas);
 
     }
 
